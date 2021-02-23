@@ -2,7 +2,7 @@
   <div class="form-group col-sm btn-sm">
     <label for="tipo">{{ __('Tipo') }} *</label>
     @can('sistema.catalogo.create')
-      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar tipo') }}</a>
     @endcan
     <div class="input-group">
       <div class="input-group-prepend">
@@ -37,7 +37,7 @@
   <div class="form-group col-sm btn-sm">
     <label for="gama">{{ __('Gama') }} *</label>
     @can('sistema.catalogo.create')
-      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar gama') }}</a>
     @endcan
     <div class="input-group">
       <div class="input-group-prepend">

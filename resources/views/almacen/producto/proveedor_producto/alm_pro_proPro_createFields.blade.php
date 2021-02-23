@@ -50,6 +50,48 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="mombre_del_producto_que_maneja_el_proveedor">{{ __('Nombre del producto que maneja el proveedor') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::text('mombre_del_producto_que_maneja_el_proveedor', null, ['class' => 'form-control' . ($errors->has('mombre_del_producto_que_maneja_el_proveedor') ? ' is-invalid' : ''), 'maxlength' => 70, 'placeholder' => __('Nombre del producto que maneja el proveedor')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('mombre_del_producto_que_maneja_el_proveedor') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="codigo_de_fabricante">{{ __('Código de fabricante') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::text('codigo_de_fabricante', null, ['class' => 'form-control' . ($errors->has('codigo_de_fabricante') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Código de fabricante')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
+  </div>
+  <div class="form-group col-sm-1 btn-sm">
+    <label for="iva"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('iva', 'on', null, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('iva') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="ieps"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('ieps', 'on', null, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('ieps') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <a href="{{ route('almacen.producto.edit', Crypt::encrypt($producto->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el producto') }}</a>
   </div>
   <div class="form-group col-sm btn-sm">

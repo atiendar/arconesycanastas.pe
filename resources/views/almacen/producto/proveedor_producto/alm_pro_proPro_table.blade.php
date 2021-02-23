@@ -10,6 +10,10 @@
         <th>{{ __('PRECIO PROVEEDOR') }}</th>
         <th>{{ __('UTILIDAD') }}</th>
         <th>{{ __('PRECIO CLIENTE') }}</th>
+        <th>{{ __('NOM. PROD. PROV') }}</th>
+        <th>{{ __('COD. FAB.') }}</th>
+        <th>{{ __('IVA') }}</th>
+        <th>{{ __('IEPS') }}</th>
         <th colspan="2">&nbsp</th>
       </tr>
     </thead>
@@ -30,6 +34,10 @@
               {!! Form::select('utilidad', config('opcionesSelect.select_utilidad'), $proveedor->pivot->utilid, ['class' => 'form-control form-control-sm disable' . ($errors->has('utilidad') ? ' is-invalid' : ''), 'disabled']) !!}
             </td>
             <td>${{ Sistema::dosDecimales($proveedor->pivot->prec_clien) }}</td>
+            <td>{{ $proveedor->pivot->produc }}</td>
+            <td>{{ $proveedor->pivot->cod_fabricante }}</td>
+            <td>{{ $proveedor->pivot->tip_iva }}</td>
+            <td>{{ $proveedor->pivot->ieps }}</td>
             @if(Request::route()->getName() == 'almacen.producto.edit')
               @include('almacen.producto.proveedor_producto.alm_pro_proPro_tableOpciones')
             @else

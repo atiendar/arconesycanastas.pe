@@ -34,7 +34,7 @@ class Producto extends Model {
     return $this->belongsToMany('App\Models\Producto', 'producto_tiene_sustitutos', 'producto_id', 'sustituto_id')->withPivot('id')->withTimestamps()->orderBy('producto_tiene_sustitutos.id', 'DESC');
   }
   public function proveedores(){
-    return $this->belongsToMany('App\Models\Proveedor', 'producto_tiene_proveedores')->withPivot('id', 'prec_prove', 'utilid', 'prec_clien')->withTimestamps()->orderBy('producto_tiene_proveedores.id', 'DESC');
+    return $this->belongsToMany('App\Models\Proveedor', 'producto_tiene_proveedores')->withPivot('id', 'prec_prove', 'utilid', 'prec_clien', 'produc', 'cod_fabricante', 'tip_iva', 'ieps')->withTimestamps()->orderBy('producto_tiene_proveedores.id', 'DESC');
   }
   public function precios(){
     return $this->hasMany('App\Models\PrecioPorYear')->orderBy('id', 'DESC');

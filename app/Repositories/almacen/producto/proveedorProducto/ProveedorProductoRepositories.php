@@ -28,9 +28,13 @@ class ProveedorProductoRepositories implements ProveedorProductoInterface {
     $prec_clien = $this->calculoRepo->calcularUtilidad($request->precio_proveedor, $request->utilidad);
     $producto   = $this->productoRepo->getproductoFindOrFailById($id_producto, 'proveedores');
       $producto->proveedores()->attach($request->nombre_del_proveedor, [
-        'prec_prove'  => $request->precio_proveedor,
-        'utilid'      => $request->utilidad,
-        'prec_clien'  => $prec_clien
+        'prec_prove'      => $request->precio_proveedor,
+        'utilid'          => $request->utilidad,
+        'prec_clien'      => $prec_clien,
+        'produc'          => $request->mombre_del_producto_que_maneja_el_proveedor,
+        'cod_fabricante'  => $request->codigo_de_fabricante,
+        'tip_iva'         => $request->iva,
+        'ieps'            => $request->ieps
       ]);
       return $producto;
     });
@@ -41,11 +45,15 @@ class ProveedorProductoRepositories implements ProveedorProductoInterface {
       $producto = $this->productoRepo->getproductoFindOrFailById($id_producto, ['proveedores', 'armados']);
 
       // Actualiza los datos de la tabla pivot
-      $proveedores = $producto->proveedores()->where('proveedores.id', $this->serviceCrypt->decrypt($id_proveedor))->first();
-      $pivot = $proveedores->pivot;
-      $pivot->prec_prove  = $request->precio_proveedor;
-      $pivot->utilid      = $request->utilidad;
-      $pivot->prec_clien  = $prec_clien;
+      $proveedores            = $producto->proveedores()->where('proveedores.id', $this->serviceCrypt->decrypt($id_proveedor))->first();
+      $pivot                  = $proveedores->pivot;
+      $pivot->prec_prove      = $request->precio_proveedor;
+      $pivot->utilid          = $request->utilidad;
+      $pivot->prec_clien      = $prec_clien;
+      $pivot->produc          = $request->mombre_del_producto_que_maneja_el_proveedor;
+      $pivot->cod_fabricante  = $request->codigo_de_fabricante;
+      $pivot->tip_iva         = $request->iva;
+      $pivot->ieps            = $request->ieps;
       $pivot->save();
     
       // Actualiza los datos del producto solo en caso de que el proveedor que se modifico sea el mismo al que tiene el producto

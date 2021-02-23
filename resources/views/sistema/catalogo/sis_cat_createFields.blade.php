@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="input">{{ __('Input') }} ({{__('Campo opciones multiples al que se le va asignar el Value')}}) *</label>
+    <label for="input">{{ __('Input') }} ({{__('Selecciona la opción donde se desea guardar en valor')}}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>

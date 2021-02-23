@@ -32,7 +32,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_del_producto">{{ __('Nombre del producto') }} * ({{ __('Gramos o Mililitros') }})</label>
+    <label for="nombre_del_producto">{{ __('Nombre del producto') }} * ({{ __('Incluir Gramos o Mililitros') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
@@ -62,18 +62,6 @@
     </div>
     <span class="text-danger">{{ $errors->first('es_producto_de_catalogo') }}</span>
   </div>
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="codigo_de_fabricante">{{ __('Código de fabricante') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
-      </div>
-      {!! Form::text('codigo_de_fabricante', $producto->cod_fabricante, ['class' => 'form-control' . ($errors->has('codigo_de_fabricante') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Código de fabricante')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
-  </div>
   <div class="form-group col-sm btn-sm">
     <label for="minimo_de_venta">{{ __('Mínimo de venta') }} ({{ __('Mínimo de piezas que debe comprar el cliente') }})</label>
     <div class="input-group">
@@ -84,32 +72,12 @@
     </div>
     <span class="text-danger">{{ $errors->first('minimo_de_venta') }}</span>
   </div>
-  <div class="form-group col-sm-1 btn-sm">
-    <label for="iva"></label>
-    <div class="input-group p-2">
-      <div class="custom-control custom-switch">
-        {!! Form::checkbox('iva', 'on', $producto->tip_iva, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
-        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
-      </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('iva') }}</span>
-  </div>
-  <div class="form-group col-sm-2 btn-sm">
-    <label for="ieps"></label>
-    <div class="input-group p-2">
-      <div class="custom-control custom-switch">
-        {!! Form::checkbox('ieps', 'on', $producto->ieps, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
-        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
-      </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('ieps') }}</span>
-  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>
     @can('sistema.catalogo.create')
-      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar marca') }}</a>
     @endcan
     <div class="input-group">
       <div class="input-group-prepend">
@@ -260,7 +228,7 @@
   <div class="form-group col-sm btn-sm">
     <label for="categoria">{{ __('Categoría') }} *</label>
     @can('sistema.catalogo.create')
-      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar categoría') }}</a>
     @endcan
     <div class="input-group">
       <div class="input-group-prepend">
@@ -273,7 +241,7 @@
   <div class="form-group col-sm-6 btn-sm">
     <label for="etiqueta">{{ __('Etiqueta') }} ({{ __('SubCategorías') }})</label>
     @can('sistema.catalogo.create')
-      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar subCategoría') }}</a>
     @endcan
     <div class="input-group">
       <div class="input-group-prepend">
