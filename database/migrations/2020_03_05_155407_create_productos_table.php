@@ -19,6 +19,7 @@ class CreateProductosTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('prod_valid', 3)->default('No')->comment('¿Producto validado?');
+            $table->string('hab_desh', 15)->default('Habilitado')->comment('Habilitar o deshabilitar producto');
             $table->string('img_prod_rut', 200)->nullable()->comment('Ruta de donde se guardo la imagen del producto');
             $table->string('img_prod_nom', 200)->nullable()->comment('Nombre de la imagen');
             $table->string('produc', 70)->unique()->comment('Nombre del producto');

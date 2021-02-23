@@ -18,32 +18,53 @@
     </div>
   </div>
 </div>
-@can('almacen.producto.edit')
-  @include('almacen.producto.imagenes.img_index')
-@endcan
-@can('almacen.producto.editValidado')
-  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
-    <div class="card-body">
-      {!! Form::open(['route' => ['almacen.producto.updateValidado', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdateValidado']) !!}
-        @include('almacen.producto.alm_pro_editValidadoFields')
-      {!! Form::close() !!}
+@if($producto->hab_desh != 'Deshabilitado')
+  @can('almacen.producto.edit')
+    @include('almacen.producto.imagenes.img_index')
+  @endcan
+@endif
+<div class="row">
+  @can('almacen.producto.editHabilitado')
+    <div class="col-sm ">
+      <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+        <div class="card-body">
+          {!! Form::open(['route' => ['almacen.producto.updateHabilitado', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdateHabilitado']) !!}
+            @include('almacen.producto.alm_pro_editHabDesh')
+          {!! Form::close() !!}
+        </div>
+      </div>
     </div>
-  </div>
-@endcan
-@include('almacen.producto.stock_producto.alm_pro_stoPro_edit')
-@can('almacen.producto.edit')
-  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
-    <div class="card-body">
-      {!! Form::open(['route' => ['almacen.producto.update', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdate', 'files' => true]) !!}
-        @include('almacen.producto.alm_pro_editFields')
-      {!! Form::close() !!}
+  @endcan
+  @if($producto->hab_desh != 'Deshabilitado')
+    @can('almacen.producto.editValidado')
+      <div class="col-sm">
+        <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+          <div class="card-body">
+            {!! Form::open(['route' => ['almacen.producto.updateValidado', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdateValidado']) !!}
+              @include('almacen.producto.alm_pro_editValidadoFields')
+            {!! Form::close() !!}
+          </div>
+        </div>
+      </div>
+    @endcan
+  @endif
+</div>
+@if($producto->hab_desh != 'Deshabilitado')
+  @include('almacen.producto.stock_producto.alm_pro_stoPro_edit')
+  @can('almacen.producto.edit')
+    <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+      <div class="card-body">
+        {!! Form::open(['route' => ['almacen.producto.update', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoUpdate', 'files' => true]) !!}
+          @include('almacen.producto.alm_pro_editFields')
+        {!! Form::close() !!}
+      </div>
     </div>
-  </div>
-@endcan
-@include('almacen.producto.proveedor_producto.alm_pro_proPro_index')
-@include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
-@can('almacen.producto.edit')
-  @include('almacen.producto.precios.pre_index')
-@endcan
+  @endcan
+  @include('almacen.producto.proveedor_producto.alm_pro_proPro_index')
+  @include('almacen.producto.sustitutos_producto.alm_pro_susPro_index')
+  @can('almacen.producto.edit')
+    @include('almacen.producto.precios.pre_index')
+  @endcan
+@endif
 @include('layouts.private.plugins.priv_plu_select2')
 @endsection

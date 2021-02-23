@@ -10,6 +10,14 @@
   <div class="card-body">
     {!! Form::open(['route' => ['almacen.producto.proveedor.store', Crypt::encrypt($producto->id)], 'onsubmit' => 'return checarBotonSubmit("btnsubmit")']) !!}
       @include('almacen.producto.proveedor_producto.alm_pro_proPro_createFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <a href="{{ route('almacen.producto.edit', Crypt::encrypt($producto->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el producto') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
+        </div>
+      </div>
     {!! Form::close() !!}
   </div>
 </div>

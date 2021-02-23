@@ -208,6 +208,9 @@ class ProveedorRepositories implements ProveedorInterface {
     });
     return $proveedores; 
   }
+  public function getAllProveedoresPlunkId() {
+    return Proveedor::orderBy('nom_comerc', 'ASC')->pluck('nom_comerc', 'id');
+  }
   public function getAllProveedoresPlunkMenos($proveedores) {
     return Proveedor::where(function($query) use($proveedores) {
       $hastaC = count($proveedores) -1;

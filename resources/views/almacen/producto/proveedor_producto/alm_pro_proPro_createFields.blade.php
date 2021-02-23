@@ -90,14 +90,6 @@
     <span class="text-danger">{{ $errors->first('ieps') }}</span>
   </div>
 </div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <a href="{{ route('almacen.producto.edit', Crypt::encrypt($producto->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el producto') }}</a>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Registrar') }}</button>
-  </div>
-</div>
 @include('layouts.private.plugins.priv_plu_select2')
 @include('almacen.producto.alm_pro_calcularUtilidad')
 @section('js6')

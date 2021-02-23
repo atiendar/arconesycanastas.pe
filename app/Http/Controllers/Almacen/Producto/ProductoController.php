@@ -8,31 +8,36 @@ use App\Http\Requests\almacen\producto\UpdateProductoRequest;
 use App\Http\Requests\almacen\producto\UpdateAumentarStockRequest;
 use App\Http\Requests\almacen\producto\UpdateDisminuirStockRequest;
 use App\Http\Requests\almacen\producto\UpdateValidadoProductoRequest;
+use App\Http\Requests\almacen\producto\UpdateHabilitadoProductoRequest;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\almacen\producto\ProductoRepositories;
 use App\Repositories\servicio\archivoGenerado\ArchivoGeneradoRepositories;
 use App\Repositories\sistema\catalogo\CatalogoRepositories;
+use App\Repositories\proveedor\ProveedorRepositories;
 
 class ProductoController extends Controller {
   protected $serviceCrypt;
   protected $productoRepo;
   protected $catalogoRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, ProductoRepositories $productoRepositories, CatalogoRepositories $catalogoRepositories) {
+  protected $proveedorRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, ProductoRepositories $productoRepositories, CatalogoRepositories $catalogoRepositories, ProveedorRepositories $proveedorRepositories) {
     $this->serviceCrypt   = $serviceCrypt;
     $this->productoRepo   = $productoRepositories;
     $this->catalogoRepo   = $catalogoRepositories;
+    $this->proveedorRepo          = $proveedorRepositories;
   }
   public function index(Request $request) {
     $productos = $this->productoRepo->getPagination($request);
     return view('almacen.producto.alm_pro_index', compact('productos'));
   }
   public function create() {
-    $categorias_list  = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
-    $etiquetas_list   = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
-    $marca_list       = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Marca)');
-    return view('almacen.producto.alm_pro_create', compact('categorias_list', 'etiquetas_list', 'marca_list'));
+    $categorias_list    = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Categoría)');
+    $etiquetas_list     = $this->catalogoRepo->getAllIdCatalogosPlunk('Productos (Etiqueta)');
+    $marca_list         = $this->catalogoRepo->getAllInputCatalogosPlunk('Productos (Marca)');
+    $proveedores_list   = $this->proveedorRepo->getAllProveedoresPlunkId();
+    return view('almacen.producto.alm_pro_create', compact('categorias_list', 'etiquetas_list', 'marca_list', 'proveedores_list'));
   }
   public function store(StoreProductoRequest $request) {
     $producto = $this->productoRepo->store($request);
@@ -77,6 +82,11 @@ class ProductoController extends Controller {
   }
   public function updateValidado(UpdateValidadoProductoRequest $request, $id_producto) {
     $this->productoRepo->updateValidado($request, $id_producto);
+    toastr()->success('¡Producto actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateHabilitado(UpdateHabilitadoProductoRequest $request, $id_producto) {
+    $this->productoRepo->updateHabilitado($request, $id_producto);
     toastr()->success('¡Producto actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }

@@ -454,6 +454,10 @@ return array(
     'prod_valid'    => 'Validado',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
   ],
+  'select_habilitado_deshabilitado' => [
+    'Habilitado'    => 'Habilitado',
+    'Deshabilitado' => 'Deshabilitado',
+  ],
   'select_producto_de_catalogo' => [
     'Producto de catálogo'  => 'Producto de catálogo',
     'Producto externo'      => 'Producto externo',

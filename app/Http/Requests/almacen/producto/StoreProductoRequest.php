@@ -28,6 +28,15 @@ class StoreProductoRequest extends FormRequest {
       'codigo_de_barras'          => 'nullable|max:250',
       'cantidad_minima_de_stock'  => 'required|min:0|numeric|max:99999',
       'descripcion_del_producto'  => 'nullable|max:30000|string',
+      // VALIDACION PARA CAMPOS DEL PROVEEDOR
+      'nombre_del_proveedor'                        => 'required|exists:proveedores,id',
+      'precio_proveedor'                            => 'required|min:0|numeric|alpha_decimal15',
+      'utilidad'                                    => 'required|in:.0,.1,.2,.3,.4,.5,.6,.7,.8,.9',
+      'precio_cliente'                              => 'required|min:0|numeric|alpha_decimal18',
+      'mombre_del_producto_que_maneja_el_proveedor' => 'nullable|max:70',
+      'codigo_de_fabricante'                        => 'nullable|max:100',
+      'tipo_de_iva'                                 => 'nullable|in:on,off',
+      'ieps'                                        => 'nullable|in:on,off',
     ];
   }
   public function attributes() {

@@ -12,6 +12,8 @@ interface ProductoInterface {
 
     public function updateValidado($request, $id_producto);
     
+    public function updateHabilitado($request, $id_producto);
+    
     public function aumentarStock($request, $id_producto);
 
     public function disminuirStock($request, $id_producto);

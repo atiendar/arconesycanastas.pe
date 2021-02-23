@@ -69,6 +69,26 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="habilitar_o_deshabilitar">{{ __('Habilitar o deshabilitar') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-question"></i></span>
+      </div>
+      {!! Form::select('habilitar_o_deshabilitar', config('opcionesSelect.select_habilitado_deshabilitado'), $producto->hab_desh, ['class' => 'form-control select2', 'placeholder' => __('')]) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="producto_validado">{{ __('¿Producto validado?') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-question"></i></span>
+      </div>
+      {!! Form::select('producto_validado', config('opcionesSelect.select_si_no'), $producto->prod_valid, ['class' => 'form-control select2', 'placeholder' => __('')]) !!}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} ({{ __('Arcones') }})</label>
     <div class="input-group">
       <div class="input-group-prepend">

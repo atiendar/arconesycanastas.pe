@@ -13,6 +13,7 @@ use App\Repositories\papeleraDeReciclaje\PapeleraDeReciclajeRepositories;
 use App\Repositories\servicio\calculo\CalculoRepositories;
 use App\Repositories\armado\CalcularValoresArmadoRepositories;
 use App\Repositories\cotizacion\CalcularValoresCotizacionRepositories;
+use App\Repositories\almacen\producto\proveedorProducto\StoreProveedorProductoRepositories;
 // Otros
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -26,12 +27,14 @@ class ProductoRepositories implements ProductoInterface {
   protected $calcularValoresArmadoRepo;
   protected $calculoRepo;
   protected $calcularValoresCotizacionRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalcularValoresArmadoRepositories $calcularValoresArmadoRepositories, CalculoRepositories $calculoRepositories, CalcularValoresCotizacionRepositories $calcularValoresCotizacionRepositories) {
+  protected $storeProveedorProductoRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PapeleraDeReciclajeRepositories $papeleraDeReciclajeRepositories, CalcularValoresArmadoRepositories $calcularValoresArmadoRepositories, CalculoRepositories $calculoRepositories, CalcularValoresCotizacionRepositories $calcularValoresCotizacionRepositories, StoreProveedorProductoRepositories $storeProveedorProductoRepositories) {
     $this->serviceCrypt                         = $serviceCrypt;
     $this->papeleraDeReciclajeRepo              = $papeleraDeReciclajeRepositories;
     $this->calcularValoresArmadoRepo            = $calcularValoresArmadoRepositories;
     $this->calculoRepo                          = $calculoRepositories;
     $this->calcularValoresCotizacionRepo        = $calcularValoresCotizacionRepositories;
+    $this->storeProveedorProductoRepo           = $storeProveedorProductoRepositories;
   }
   public function productoAsignadoFindOrFailById($id_producto, $relaciones = null) {
     $id_producto = $this->serviceCrypt->decrypt($id_producto);
@@ -88,11 +91,20 @@ class ProductoRepositories implements ProductoInterface {
         $producto->img_prod_nom = $nom;
       }
       $producto->save();
-      $producto->sku  = 'PRO-'.$producto->id;
-      $producto->save();
       $producto->catalogos()->sync($request->etiqueta);
+      $this->storeProveedorProductoRepo->store($request, $producto);
+      
+      $producto->sku            = 'PRO-'.$producto->id;
+      // GUARDA LA INFORMACION DEL PROVEEDOR EN LOS CAMPOS DEL PRODUCTO
+      $proveedor                = $producto->proveedores()->where('proveedores.id', $request->nombre_del_proveedor)->first();
+      $producto->prove          = $proveedor->nom_comerc;
+      $producto->prec_prove     = $proveedor->pivot->prec_prove;
+      $producto->utilid         = $proveedor->pivot->utilid;
+      $producto->prec_clien     = $this->calculoRepo->getUtilidadProducto($proveedor->pivot->prec_prove, $proveedor->pivot->utilid, $producto->cost_arm);
+      $producto->save();
 
       $this->eliminarCacheAllProductosPlunk();
+      
       DB::commit();
       return $producto;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
@@ -185,7 +197,32 @@ class ProductoRepositories implements ProductoInterface {
           $producto, // Request
           array('prod_valid') // Nombre de los campos en la BD
         ); 
-        $producto->created_at_prod = Auth::user()->email_registro;
+        $producto->updated_at_prod = Auth::user()->email_registro;
+      }
+      $producto->save();
+      $this->eliminarCacheAllProductosPlunk();
+
+      DB::commit();
+      return $producto;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function updateHabilitado($request, $id_producto) {
+    try { DB::beginTransaction();
+      $producto = $this->productoAsignadoFindOrFailById($id_producto, []);
+      $producto->hab_desh  = $request->habilitar_o_deshabilitar;
+
+      if($producto->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Productos', // Módulo
+          'almacen.producto.show', // Nombre de la ruta
+          $id_producto, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Habilitar o deshabilitar'), // Nombre de los inputs del formulario
+          $producto, // Request
+          array('hab_desh') // Nombre de los campos en la BD
+        ); 
+        $producto->updated_at_prod = Auth::user()->email_registro;
       }
       $producto->save();
       $this->eliminarCacheAllProductosPlunk();
@@ -311,7 +348,7 @@ class ProductoRepositories implements ProductoInterface {
   }
   // Devuelve todos los registros de la tabla productos a excepción de los que se espesifiquen
   public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos, $opcion) {
-    return Producto::where(function($query) use($sustitutos_o_productos, $opcion) {
+    return Producto::where('hab_desh', 'Habilitado')->where(function($query) use($sustitutos_o_productos, $opcion) {
       $hastaC = count($sustitutos_o_productos) -1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
         if($opcion == 'original') {
@@ -323,7 +360,7 @@ class ProductoRepositories implements ProductoInterface {
     })->orderBy('produc', 'ASC')->pluck('produc', 'id');
   }
   public function getAllSustitutosOrProductosMenos($sustitutos_o_productos, $opcion) {
-    return Producto::where(function($query) use($sustitutos_o_productos, $opcion) {
+    return Producto::where('hab_desh', 'Habilitado')->where(function($query) use($sustitutos_o_productos, $opcion) {
       $hastaC = count($sustitutos_o_productos) -1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
         if($opcion == 'original') {

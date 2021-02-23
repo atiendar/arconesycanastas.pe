@@ -23,22 +23,6 @@ class ProveedorProductoRepositories implements ProveedorProductoInterface {
     $this->calcularValoresArmadoRepo      = $calcularValoresArmadoRepositories;
     $this->calcularValoresCotizacionRepo  = $calcularValoresCotizacionRepositories;
   }
-  public function store($request, $id_producto) {
-    DB::transaction(function() use($request, $id_producto) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
-    $prec_clien = $this->calculoRepo->calcularUtilidad($request->precio_proveedor, $request->utilidad);
-    $producto   = $this->productoRepo->getproductoFindOrFailById($id_producto, 'proveedores');
-      $producto->proveedores()->attach($request->nombre_del_proveedor, [
-        'prec_prove'      => $request->precio_proveedor,
-        'utilid'          => $request->utilidad,
-        'prec_clien'      => $prec_clien,
-        'produc'          => $request->mombre_del_producto_que_maneja_el_proveedor,
-        'cod_fabricante'  => $request->codigo_de_fabricante,
-        'tip_iva'         => $request->iva,
-        'ieps'            => $request->ieps
-      ]);
-      return $producto;
-    });
-  }
   public function update($request, $id_producto, $id_proveedor) {
     DB::transaction(function() use($request, $id_producto, $id_proveedor) {  // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $prec_clien = $this->calculoRepo->calcularUtilidad($request->precio_proveedor, $request->utilidad);

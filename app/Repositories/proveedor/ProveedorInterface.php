@@ -16,6 +16,8 @@ interface ProveedorInterface {
 
     public function getAllProveedoresPlunk();
 
+    public function getAllProveedoresPlunkId();
+    
     public function getAllProveedoresPlunkMenos($proveedores);
 
     public function eliminarCacheAllProveedoresPlunk();

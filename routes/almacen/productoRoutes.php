@@ -10,6 +10,7 @@ Route::group(['prefix' => 'producto'], function() {
   Route::group(['prefix' => 'actualizar'], function() {
     Route::match(['PUT', 'PATCH'],'{id_producto}', 'Almacen\Producto\ProductoController@update')->name('almacen.producto.update')->middleware('permission:almacen.producto.edit');
     Route::match(['PUT', 'PATCH'],'validado/{id_producto}', 'Almacen\Producto\ProductoController@updateValidado')->name('almacen.producto.updateValidado')->middleware('permission:almacen.producto.editValidado');
+    Route::match(['PUT', 'PATCH'],'habilitado/{id_producto}', 'Almacen\Producto\ProductoController@updateHabilitado')->name('almacen.producto.updateHabilitado')->middleware('permission:almacen.producto.editHabilitado');
     Route::match(['PUT', 'PATCH'],'aumentar-stock/{id_producto}', 'Almacen\Producto\ProductoController@aumentarStock')->name('almacen.producto.aumentarStock')->middleware('permission:almacen.producto.edit');
     Route::match(['PUT', 'PATCH'],'disminuir-stock/{id_producto}', 'Almacen\Producto\ProductoController@disminuirStock')->name('almacen.producto.disminuirStock')->middleware('permission:almacen.producto.disminuirStock');
   }); 
