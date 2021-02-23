@@ -1288,5 +1288,12 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Editar campo validado de cualquier registro del módulo Almacén 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 44,
+      'nom'             => "Editar registro habilitado o deshabilitado Almacén 'Productos'",
+      'name'				    => "almacen.producto.editHabilitado",
+      'desc'            => "Editar campo habilitado o deshabilitado de cualquier registro del módulo Almacén 'Productos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
   }
 }
