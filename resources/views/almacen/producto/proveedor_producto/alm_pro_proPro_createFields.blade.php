@@ -13,7 +13,7 @@
     <span class="text-danger">{{ $errors->first('nombre_del_proveedor') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="precio_proveedor">{{ __('Precio proveedor') }} *</label>
+    <label for="precio_proveedor">{{ __('Precio final del proveedor') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
@@ -24,6 +24,26 @@
       </div>
     </div>
     <span class="text-danger">{{ $errors->first('precio_proveedor') }}</span>
+  </div>
+  <div class="form-group col-sm-1 btn-sm">
+    <label for="iva"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('iva', 'on', null, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('iva') }}</span>
+  </div>
+  <div class="form-group col-sm-2 btn-sm">
+    <label for="ieps"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('ieps', 'on', null, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('ieps') }}</span>
   </div>
 </div>
 <div class="row">
@@ -68,26 +88,6 @@
       {!! Form::text('codigo_de_fabricante', null, ['class' => 'form-control' . ($errors->has('codigo_de_fabricante') ? ' is-invalid' : ''), 'maxlength' => 100, 'placeholder' => __('Código de fabricante')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('codigo_de_fabricante') }}</span>
-  </div>
-  <div class="form-group col-sm-1 btn-sm">
-    <label for="iva"></label>
-    <div class="input-group p-2">
-      <div class="custom-control custom-switch">
-        {!! Form::checkbox('iva', 'on', null, ['id' => 'iva', 'class' => 'custom-control-input' . ($errors->has('iva') ? ' is-invalid' : '')]) !!}
-        <label class="custom-control-label" for="iva">{{ __('IVA') }}</label>
-      </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('iva') }}</span>
-  </div>
-  <div class="form-group col-sm-2 btn-sm">
-    <label for="ieps"></label>
-    <div class="input-group p-2">
-      <div class="custom-control custom-switch">
-        {!! Form::checkbox('ieps', 'on', null, ['id' => 'ieps', 'class' => 'custom-control-input' . ($errors->has('ieps') ? ' is-invalid' : '')]) !!}
-        <label class="custom-control-label" for="ieps">{{ __('IEPS') }}</label>
-      </div>
-    </div>
-    <span class="text-danger">{{ $errors->first('ieps') }}</span>
   </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')

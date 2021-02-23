@@ -29,12 +29,14 @@ class ProveedorController extends Controller {
   public function show(Request $request, $id_proveedor) {
     $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor, 'contactos');
     $contactos = $this->proveedorRepo->getContactosProveedor($proveedor, $request);
-    return view('proveedor.pro_show', compact('proveedor', 'contactos'));
+    $productos = $proveedor->productos()->paginate(99999999);
+    return view('proveedor.pro_show', compact('proveedor', 'contactos', 'productos'));
   }
   public function edit(Request $request, $id_proveedor) {
     $proveedor = $this->proveedorRepo->proveedorAsignadoFindOrFailById($id_proveedor, 'contactos');
     $contactos = $this->proveedorRepo->getContactosProveedor($proveedor, $request);
-    return view('proveedor.pro_edit', compact('proveedor', 'contactos'));
+    $productos = $proveedor->productos()->paginate(99999999);
+    return view('proveedor.pro_edit', compact('proveedor', 'contactos', 'productos'));
   }
   public function update(UpdateProveedorRequest $request, $id_proveedor) {
     $this->proveedorRepo->update($request, $id_proveedor);

@@ -288,7 +288,7 @@
     <span class="text-danger">{{ $errors->first('codigo_de_barras') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }} *</label>
+    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>

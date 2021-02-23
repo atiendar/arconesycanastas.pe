@@ -25,4 +25,5 @@
   @endcan
 </div>
 @include('proveedor.contacto_proveedor.pro_conPro_index')
+@include('proveedor.productos.pro_index')
 @endsection

@@ -30,7 +30,7 @@ class UpdateProductoRequest extends FormRequest {
       'etiqueta'                  => 'nullable|exists:catalogos,id|array',
       'peso'                      => 'required|min:0|numeric|alpha_decimal7',
       'codigo_de_barras'          => 'nullable|max:250',
-      'cantidad_minima_de_stock'  => 'required|min:0|numeric|max:99999',
+      'cantidad_minima_de_stock'  => 'nullable|min:0|numeric|max:99999',
       'descripcion_del_producto'  => 'nullable|max:30000|string',
     ];
   }

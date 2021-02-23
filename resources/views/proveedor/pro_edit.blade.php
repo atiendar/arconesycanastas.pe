@@ -39,4 +39,5 @@
 @endcan
 @include('layouts.private.plugins.priv_plu_select2')
 @include('proveedor.contacto_proveedor.pro_conPro_index')
+@include('proveedor.productos.pro_index')
 @endsection
