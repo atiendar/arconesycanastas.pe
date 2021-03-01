@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="precio_proveedor">{{ __('Precio final del proveedor') }} *</label>
+    <label for="precio_proveedor">{{ __('Precio final del proveedor') }} ({{ __('Inpuestos incluidos, IVA, IEPS, ETC.') }}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
