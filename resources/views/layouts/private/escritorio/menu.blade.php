@@ -74,5 +74,7 @@
 @include('layouts.private.escritorio.menu.logistica')
 @include('layouts.private.escritorio.menu.facturacion')
 @include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
+{{-- 
 @include('layouts.private.escritorio.menu.stock')
 @include('layouts.private.escritorio.menu.material')
+--}}
