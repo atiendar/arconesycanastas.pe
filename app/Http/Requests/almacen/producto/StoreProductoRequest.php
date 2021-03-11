@@ -15,6 +15,7 @@ class StoreProductoRequest extends FormRequest {
     //  'tipo_de_iva'               => 'nullable|in:on,off',
     //  'ieps'                      => 'nullable|in:on,off',
       'minimo_de_venta'           => 'nullable|numeric|alpha_decimal15',
+      'publicado_en_tienda_gourmet' => 'required|in:Si,No',
       'marca'                     => 'required|max:150|exists:catalogos,value',
       'tipo'                      => 'required|in:Producto,Canasta',
       'tamano'                    => 'nullable|required_if:tipo,Canasta|in:Chico,Mediano,Grande',

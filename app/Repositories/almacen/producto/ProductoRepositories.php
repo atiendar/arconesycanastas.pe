@@ -53,6 +53,7 @@ class ProductoRepositories implements ProductoInterface {
     //  $producto->tip_iva         = $request->iva;
     //  $producto->ieps            = $request->ieps;
       $producto->min_vent        = $request->minimo_de_venta;
+      $producto->publi_tie_gou   = $request->publicado_en_tienda_gourmet;
       $producto->marc            = $request->marca;
       $producto->tip             = $request->tipo;
       if($producto->tip == 'Canasta') {
@@ -118,6 +119,7 @@ class ProductoRepositories implements ProductoInterface {
     //  $producto->tip_iva         = $request->iva;
     //  $producto->ieps            = $request->ieps;
       $producto->min_vent        = $request->minimo_de_venta;
+      $producto->publi_tie_gou   = $request->publicado_en_tienda_gourmet;
       $producto->marc           = $request->marca;
       if($producto->tip == 'Canasta') {
         $producto->tam          = $request->tamano;
@@ -144,9 +146,9 @@ class ProductoRepositories implements ProductoInterface {
           'almacen.producto.show', // Nombre de la ruta
           $id_producto, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_producto), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre del producto', 'Es producto de catálogo', 'Mínimo de venta', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
+          array('Nombre del producto', 'Es producto de catálogo', 'Mínimo de venta', '¿Publicado en tienda gourmet?', 'Marca', 'Tamaño ', 'Alto', 'Ancho', 'Largo', 'Costo de armado', 'Nombre del proveedor', 'Precio proveedor', 'Utilidad', 'Precio cliente', 'Categoría', 'Peso', 'Código de barras', 'Cantidad mínima de stock', 'Descripción del producto'), // Nombre de los inputs del formulario
           $producto, // Request
-          array('produc', 'pro_de_cat', 'min_vent', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
+          array('produc', 'pro_de_cat', 'min_vent', 'publi_tie_gou', 'marc', 'tam', 'alto', 'ancho', 'largo', 'cost_arm', 'prove', 'prec_prove', 'utilid', 'prec_clien', 'categ', 'pes', 'cod_barras', 'min_stock', 'desc_del_prod') // Nombre de los campos en la BD
         );
         $producto->updated_at_prod = Auth::user()->email_registro;
       }

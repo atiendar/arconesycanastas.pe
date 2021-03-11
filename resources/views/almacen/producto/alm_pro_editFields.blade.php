@@ -72,6 +72,18 @@
     </div>
     <span class="text-danger">{{ $errors->first('minimo_de_venta') }}</span>
   </div>
+
+  <div class="form-group col-sm btn-sm">
+    <label for="publicado_en_tienda_gourmet">{{ __('¿Publicado en tienda gourmet?') }} </label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+        </div>
+        {!! Form::select('publicado_en_tienda_gourmet', config('opcionesSelect.select_si_no'), $producto->publi_tie_gou,['class' => 'form-control select2' . ($errors->has('publicado_en_tienda_gourmet') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('publicado_en_tienda_gourmet') }}</span>
+  </div>
+
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -288,7 +300,7 @@
     <span class="text-danger">{{ $errors->first('codigo_de_barras') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }}</label>
+    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }} ({{ __('O cantidad máxima de venta')}})</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
