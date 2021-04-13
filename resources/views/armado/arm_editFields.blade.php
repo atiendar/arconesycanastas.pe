@@ -8,7 +8,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-sm btn-sm">
+
+  {{-- <div class="form-group col-sm btn-sm">
     <label for="tipo">{{ __('Tipo') }} *</label>
     @can('sistema.catalogo.create')
       <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar tipo') }}</a>
@@ -20,7 +21,10 @@
       {!! Form::select('tipo', $tipo_list, $armado->tip, ['class' => 'form-control select2' . ($errors->has('tipo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('tipo') }}</span>
-  </div>
+  </div> --}}
+
+  {{ Form::hidden('tipo', 'Arcón') }}
+
   <div class="form-group col-sm btn-sm">
     <label for="nombre">{{ __('Nombre') }} *</label>
     <div class="input-group">
